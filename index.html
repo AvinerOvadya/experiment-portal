@@ -6,25 +6,58 @@
     <style>
       body {
         font-family: sans-serif;
-        text-align: center;
-        margin-top: 20vh;
+        margin: 0;
+        background-image: url('https://raw.githubusercontent.com/AvinerOvadya/experiment-portal/main/mudra.jpg');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
       }
+
+      .container {
+        background-color: rgba(255, 255, 255, 0.85);
+        padding: 2em;
+        border-radius: 12px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+        max-width: 400px;
+        width: 90%;
+        text-align: center;
+      }
+
       input {
         font-size: 1.2em;
         padding: 0.5em;
-        width: 250px;
+        width: 100%;
+        margin-top: 1em;
+        border: 1px solid #ccc;
+        border-radius: 6px;
       }
+
       button {
         font-size: 1.2em;
-        padding: 0.5em 1em;
-        margin-left: 0.5em;
+        padding: 0.5em 1.5em;
+        margin-top: 1em;
+        background-color: #2a6fbf;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+      }
+
+      button:hover {
+        background-color: #1e5aa8;
       }
     </style>
   </head>
   <body>
-    <h1>Enter Your Phone Number</h1>
-    <input type="text" placeholder="e.g. 0501234567" />
-    <button>Enter</button>
-    <p>This is a static placeholder. Data integration coming soon.</p>
+    <div class="container">
+      <h1>Enter Your Phone Number</h1>
+      <input type="text" placeholder="e.g. 0501234567" />
+      <button>Enter</button>
+      <p>This is a static placeholder. Data integration coming soon.</p>
+    </div>
   </body>
 </html>
