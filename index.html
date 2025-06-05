@@ -71,6 +71,7 @@
         font-weight: bold;
         transition: background 0.2s ease;
         min-width: 120px;
+        position: relative;
       }
 
       .experiment.active {
@@ -86,6 +87,21 @@
         background-color: #888;
         color: #ccc;
         cursor: default;
+      }
+
+      .experiment.inactive::after {
+        content: "Done";
+        position: absolute;
+        top: 6px;
+        right: -20px;
+        background: #ff4d4d;
+        color: white;
+        font-size: 0.7em;
+        font-weight: bold;
+        padding: 2px 6px;
+        transform: rotate(45deg);
+        box-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
+        pointer-events: none;
       }
 
       h1 {
@@ -149,8 +165,8 @@
       <div class="experimentCard">
         <h1>Available Experiments</h1>
         <div class="experimentButtons">
-          <button class="experiment" id="tapBtn">Tap</button>
-          <button class="experiment" id="sncBtn">SNC</button>
+          <button class="experiment" id="tapBtn">Test #1</button>
+          <button class="experiment" id="sncBtn">Test #2</button>
         </div>
       </div>
     </div>
