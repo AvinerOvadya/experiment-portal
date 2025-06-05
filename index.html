@@ -180,7 +180,7 @@
 
         try {
           const url = `https://script.google.com/macros/s/AKfycby8HQoXlAJalIyBVpjPYTLx-mv_yK9JfVY7qQteXBjHafkO198MWEPOSMiQLuJ71B3_kw/exec?phone=${encodeURIComponent(phone)}`;
-          const res = await fetch(`https://script.google.com/macros/s/AKfycbwH7jfoX3rRZgtbLlnGOJbhyJef1OuFLAe_k7iqTqRhdJY7e4g15-JgFvVK4jeGLENfsg/exec?phone=${encodeURIComponent(phone)}`);
+          const res = await fetch(url);
           const data = await res.json();
 
           if (data.status === "ok" && data.experiments) {
