@@ -1,51 +1,55 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="UTF-8" />
-    <title>Experiment Portal</title>
+    <base target="_top" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <style>
       body {
         margin: 0;
-        font-family: sans-serif;
-        background-image: url('https://raw.githubusercontent.com/AvinerOvadya/experiment-portal/main/mudra.jpg');
+        padding: 0;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: url('https://cdn.mos.cms.futurecdn.net/EVHE7D2dnMpihyUrQirCWf-1200-80.jpg.webp') no-repeat center center fixed;
         background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-        height: 100vh;
         display: flex;
-        align-items: center;
         justify-content: center;
-      }
-
-      .container {
-        background: rgba(0, 51, 102, 0.8); /* גוון כחול כהה עם שקיפות */
-        padding: 3em;
-        border-radius: 20px;
-        text-align: center;
-        width: 90%;
-        max-width: 400px;
+        align-items: center;
+        height: 100vh;
         color: white;
-        box-shadow: 0 0 20px rgba(0,0,0,0.4);
       }
 
-      h1 {
+      #loginBox {
+        background: rgba(0, 51, 102, 0.85);
+        padding: 2.5em;
+        border-radius: 24px;
+        text-align: center;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+        width: 90%;
+        max-width: 520px;
+      }
+
+      #loginBox h1 {
+        font-size: 2.4em;
         margin-bottom: 1.5em;
-        font-size: 2em;
+        font-weight: bold;
+        text-shadow: 0 0 6px rgba(0, 0, 0, 0.5);
+        line-height: 1.2;
       }
 
-      input[type="text"] {
+      #phoneInput {
+        font-size: 1.4em;
+        padding: 0.6em 0.8em;
         width: 100%;
-        padding: 0.75em;
-        font-size: 1.2em;
+        max-width: 360px;
         border-radius: 12px;
         border: none;
         text-align: center;
+        box-sizing: border-box;
+        margin-bottom: 1.5em;
       }
 
-      button {
-        margin-top: 1.5em;
+      #submitBtn {
+        padding: 0.55em 2.2em;
         font-size: 1.1em;
-        padding: 0.6em 2em;
         border: none;
         border-radius: 12px;
         background-color: #2196F3;
@@ -54,17 +58,37 @@
         transition: background 0.2s ease;
       }
 
-      button:hover {
+      #submitBtn:hover {
         background-color: #1976D2;
+      }
+
+      #error {
+        margin-top: 1em;
+        color: #ff9999;
       }
     </style>
   </head>
   <body>
-    <div class="container">
-      <h1>Enter Your Phone<br />Number</h1>
-      <input type="text" placeholder="e.g. 0501234567" />
+    <div id="loginBox">
+      <h1>Enter Your Phone<br>Number</h1>
+      <input type="text" id="phoneInput" placeholder="e.g. 0501234567" />
       <br />
-      <button>Enter</button>
+      <button id="submitBtn" onclick="submitPhone()">Enter</button>
+      <div id="error"></div>
     </div>
+
+    <script>
+      function submitPhone() {
+        const phone = document.getElementById("phoneInput").value.trim();
+        document.getElementById("error").textContent = "";
+
+        if (!phone) {
+          document.getElementById("error").textContent = "Please enter your phone number.";
+          return;
+        }
+
+        alert("Phone submitted: " + phone);
+      }
+    </script>
   </body>
 </html>
