@@ -44,23 +44,23 @@ async function submitPhone() {
   const redirectUrl = "https://mudra.youcanbook.me/";
 
   if (!tapDone && !sncDone) {
-    const btn = createExperimentButton("Test #1", "active", () => window.location.href = redirectUrl);
+    const btn = createExperimentButton("Session #1", "active", () => window.location.href = redirectUrl);
     container.appendChild(btn);
   } else {
     let testIndex = 1;
 
-    const tapBtn = createExperimentButton(`Test #${testIndex++}`, tapDone ? "inactive" : "active", () => {
+    const tapBtn = createExperimentButton(`Session #${testIndex++}`, tapDone ? "inactive" : "active", () => {
       if (!tapDone) window.location.href = redirectUrl;
     });
     container.appendChild(tapBtn);
 
-    const sncBtn = createExperimentButton(`Test #${testIndex++}`, sncDone ? "inactive" : "active", () => {
+    const sncBtn = createExperimentButton(`Session #${testIndex++}`, sncDone ? "inactive" : "active", () => {
       if (!sncDone) window.location.href = redirectUrl;
     });
     container.appendChild(sncBtn);
 
     if (tapDone && sncDone) {
-      const upcomingBtn = createExperimentButton(`Test #${testIndex}`, "comingsoon", showComingSoonMessage);
+      const upcomingBtn = createExperimentButton(`Session #${testIndex}`, "comingsoon", showComingSoonMessage);
       container.appendChild(upcomingBtn);
     }
   }
@@ -79,15 +79,19 @@ function createExperimentButton(text, type, onClick) {
 
 function showComingSoonMessage() {
   const container = document.getElementById("buttonContainer");
+
   const existing = document.getElementById("comingSoonMessage");
   if (existing) {
     existing.remove();
   }
+
   const msg = document.createElement("div");
   msg.id = "comingSoonMessage";
   msg.className = "flash-message";
   msg.textContent = "We'll be available soon";
   container.appendChild(msg);
 
-  setTimeout(() => msg.remove(), 3000);
+  setTimeout(() => {
+    msg.remove();
+  }, 3000);
 }
