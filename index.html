@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Experiment Portal</title>
     <style>
-      /* (כל העיצוב נשאר בדיוק כמו שהיה) */
       body {
         margin: 0;
         padding: 0;
@@ -156,16 +155,9 @@
       </div>
     </div>
 
-    <!-- ✅ Load config.js from Google Drive -->
+    <!-- ✅ Encoded URL -->
     <script>
-      let WEB_APP_URL = "";
-
-      fetch("https://drive.google.com/uc?export=download&id=17PWlUY85UMvfZS6RqxVkuHRkL1efOUef")
-        .then(res => res.text())
-        .then(code => eval(code))
-        .catch(err => {
-          console.error("❌ Failed to load config.js", err);
-        });
+        const WEB_APP_URL = atob("aHR0cHM6Ly9zY3JpcHQuZ29vZ2xlLmNvbS9tYWNyb3Mvcy9BS2Z5Y2J5OWhKcGhQeUx4LW12X3lLOUpmVlk3cVF0ZVhCalhhZmtPMTk4TVdFUENTTWlRTHVKNzFCM19rdy9leGVj");
     </script>
 
     <!-- ✅ Main logic -->
