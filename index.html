@@ -135,7 +135,7 @@
   <body>
     <div id="loginBox">
       <h1>Enter Your Phone Number</h1>
-      <input type="text" id="phoneInput" placeholder="github2. 0501234567" />
+      <input type="text" id="phoneInput" placeholder="github. 0501234567" />
       <br />
       <button id="submitBtn" onclick="submitPhone()">Enter</button>
       <div id="error"></div>
@@ -157,7 +157,12 @@
 
     <!-- ✅ Encoded URL -->
     <script>
-        const WEB_APP_URL = atob("aHR0cHM6Ly9zY3JpcHQuZ29vZ2xlLmNvbS9tYWNyb3Mvcy9BS2Z5Y2J5OWhKcGhQeUx4LW12X3lLOUpmVlk3cVF0ZVhCalhhZmtPMTk4TVdFUENTTWlRTHVKNzFCM19rdy9leGVj");
+      const WEB_APP_URL = [
+        "https://script.google.",
+        "com/macros/s/",
+        "AKfycby8HQoXlAJalIyBVpjPYTLx-mv_yK9JfVY7qQteXBjHafkO198MWEPOSMiQLuJ71B3_kw",
+        "/exec"
+      ].join("");
     </script>
 
     <!-- ✅ Main logic -->
@@ -189,7 +194,6 @@
           const res = await fetch(url);
           const data = await res.json();
 
-          console.log("🔍 Raw API response:", data);
           if (data.status === "ok" && data.experiments) {
             tapAvailable = !data.experiments.Tap;
             sncAvailable = !data.experiments.SNC;
