@@ -155,7 +155,7 @@
       </div>
     </div>
 
-    <!-- ✅ Encoded URL -->
+    <!-- ✅ Web App URL -->
     <script>
       const WEB_APP_URL = [
         "https://script.google.",
@@ -186,6 +186,7 @@
 
         const tapBtn = document.getElementById("tapBtn");
         const sncBtn = document.getElementById("sncBtn");
+        const redirectUrl = "https://mudra.youcanbook.me/";
         let tapAvailable = true;
         let sncAvailable = true;
 
@@ -204,6 +205,7 @@
 
         if (tapAvailable) {
           tapBtn.classList.add("active");
+          tapBtn.onclick = () => window.location.href = redirectUrl;
         } else {
           tapBtn.classList.add("inactive");
           tapBtn.disabled = true;
@@ -211,6 +213,7 @@
 
         if (sncAvailable) {
           sncBtn.classList.add("active");
+          sncBtn.onclick = () => window.location.href = redirectUrl;
         } else {
           sncBtn.classList.add("inactive");
           sncBtn.disabled = true;
