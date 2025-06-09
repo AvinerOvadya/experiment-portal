@@ -135,7 +135,7 @@
   <body>
     <div id="loginBox">
       <h1>Enter Your Phone Number</h1>
-      <input type="text" id="phoneInput" placeholder="github. 0501234567" />
+      <input type="text" id="phoneInput" placeholder="github2. 0501234567" />
       <br />
       <button id="submitBtn" onclick="submitPhone()">Enter</button>
       <div id="error"></div>
@@ -189,6 +189,7 @@
           const res = await fetch(url);
           const data = await res.json();
 
+          console.log("🔍 Raw API response:", data);
           if (data.status === "ok" && data.experiments) {
             tapAvailable = !data.experiments.Tap;
             sncAvailable = !data.experiments.SNC;
