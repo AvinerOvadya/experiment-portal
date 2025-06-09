@@ -1,5 +1,3 @@
-// script.js
-
 const WEB_APP_URL = [
   "https://script.google.",
   "com/macros/s/",
@@ -7,9 +5,9 @@ const WEB_APP_URL = [
   "/exec"
 ].join("");
 
-window.onload = () => {
+document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("loginBox").style.display = "block";
-};
+});
 
 async function submitPhone() {
   const phone = document.getElementById("phoneInput").value.trim();
