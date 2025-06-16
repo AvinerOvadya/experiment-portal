@@ -6,6 +6,7 @@ const WEB_APP_URL = [
 ].join("");
 
 document.addEventListener("DOMContentLoaded", () => {
+  console.log("[Init] Page loaded, showing login box.");
   document.getElementById("loginBox").style.display = "block";
 });
 
@@ -16,26 +17,25 @@ async function submitPhone() {
 
   if (!/^\d{10,}$/.test(phone)) {
     error.textContent = "Please enter a valid phone number (at least 10 digits).";
+    console.warn("[Validation] Invalid phone number entered.");
     return;
   }
+
+  console.log(`[Submit] Checking phone: ${phone}`);
 
   document.getElementById("loginBox").style.display = "none";
   document.getElementById("loadingBox").style.display = "block";
 
-  let tapDone = false;
-  let sncDone = false;
+  let data = null;
 
   try {
     const url = `${WEB_APP_URL}?phone=${encodeURIComponent(phone)}`;
     const res = await fetch(url);
-    const data = await res.json();
-
-    if (data.status === "ok" && data.experiments) {
-      tapDone = data.experiments.Tap;
-      sncDone = data.experiments.SNC;
-    }
+    data = await res.json();
+    console.log("[API] Received data:", data);
   } catch (err) {
-    console.warn("API request failed. Assuming no tests done.");
+    console.error("[API] Failed to fetch data:", err);
+    data = null;
   }
 
   const container = document.getElementById("buttonContainer");
@@ -43,26 +43,58 @@ async function submitPhone() {
 
   const redirectUrl = "https://mudra.youcanbook.me/";
 
-  if (!tapDone && !sncDone) {
-    const btn = createExperimentButton("Session #1", "active", () => window.location.href = redirectUrl);
-    container.appendChild(btn);
-  } else {
-    let testIndex = 1;
+  const experimentList = [
+    { key: "Tap" },
+    { key: "SNC" },
+    { key: "Hadas" }
+  ];
 
-    const tapBtn = createExperimentButton(`Session #${testIndex++}`, tapDone ? "inactive" : "active", () => {
-      if (!tapDone) window.location.href = redirectUrl;
-    });
-    container.appendChild(tapBtn);
+  if (!data) {
+    console.warn("[Flow] No data received from API. Showing Coming Soon only.");
+    showComingSoon(container);
+    return;
+  }
 
-    const sncBtn = createExperimentButton(`Session #${testIndex++}`, sncDone ? "inactive" : "active", () => {
-      if (!sncDone) window.location.href = redirectUrl;
-    });
-    container.appendChild(sncBtn);
+  if (!data.globalAvailability || Object.keys(data.globalAvailability).length === 0) {
+    console.warn("[Flow] globalAvailability missing or empty. Showing Coming Soon only.");
+    showComingSoon(container);
+    return;
+  }
 
-    if (tapDone && sncDone) {
-      const upcomingBtn = createExperimentButton(`Session #${testIndex}`, "comingsoon", showComingSoonMessage);
-      container.appendChild(upcomingBtn);
+  let sessionIndex = 1;
+
+  // First, add all Done buttons (even if experiment is globally unavailable)
+  experimentList.forEach(exp => {
+    const alreadyDone = data.userExperiments[exp.key] === true;
+
+    if (alreadyDone) {
+      console.log(`[Experiment] ${exp.key} is done. Showing Done button as Session #${sessionIndex}.`);
+      const doneBtn = createExperimentButton(`Session #${sessionIndex++}`, "inactive");
+      container.appendChild(doneBtn);
     }
+  });
+
+  // Then, add the first available Active button
+  let activeShown = false;
+  for (const exp of experimentList) {
+    const isAvailable = data.globalAvailability[exp.key];
+    const alreadyDone = data.userExperiments[exp.key] === true;
+
+    if (isAvailable && !alreadyDone) {
+      console.log(`[Experiment] ${exp.key} is available. Showing Active button as Session #${sessionIndex}.`);
+      const activeBtn = createExperimentButton(`Session #${sessionIndex++}`, "active", () => {
+        window.location.href = redirectUrl;
+      });
+      container.appendChild(activeBtn);
+      activeShown = true;
+      break;
+    }
+  }
+
+  // If no active was shown, show Coming Soon
+  if (!activeShown) {
+    console.log("[Flow] No available experiments left. Showing Coming Soon.");
+    showComingSoon(container, sessionIndex);
   }
 
   document.getElementById("loadingBox").style.display = "none";
@@ -77,21 +109,7 @@ function createExperimentButton(text, type, onClick) {
   return btn;
 }
 
-function showComingSoonMessage() {
-  const container = document.getElementById("buttonContainer");
-
-  const existing = document.getElementById("comingSoonMessage");
-  if (existing) {
-    existing.remove();
-  }
-
-  const msg = document.createElement("div");
-  msg.id = "comingSoonMessage";
-  msg.className = "flash-message";
-  msg.textContent = "We'll be available soon";
-  container.appendChild(msg);
-
-  setTimeout(() => {
-    msg.remove();
-  }, 3000);
+function showComingSoon(container, sessionIndex) {
+  const comingSoonBtn = createExperimentButton(`Session #${sessionIndex}`, "comingsoon");
+  container.appendChild(comingSoonBtn);
 }
