@@ -25,6 +25,7 @@ async function submitPhone() {
 
   document.getElementById("loginBox").style.display = "none";
   document.getElementById("loadingBox").style.display = "block";
+  document.getElementById("loadingVideoContainer").style.display = "block";
 
   let data = null;
 
@@ -46,7 +47,8 @@ async function submitPhone() {
   const experimentList = [
     { key: "Tap" },
     { key: "SNC" },
-    { key: "Hadas" }
+    { key: "Hadas" },
+    { key: "Alisa" },
   ];
 
   if (!data) {
@@ -98,6 +100,7 @@ async function submitPhone() {
   }
 
   document.getElementById("loadingBox").style.display = "none";
+  document.getElementById("loadingVideoContainer").style.display = "none";
   document.getElementById("experimentBox").style.display = "flex";
 }
 
