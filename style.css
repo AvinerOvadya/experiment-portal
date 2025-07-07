@@ -5,12 +5,14 @@ body {
   background: url('mudra.jpg') no-repeat center center fixed;
   background-size: cover;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   height: 100vh;
   color: white;
 }
 
+/* Centered boxes */
 #loginBox, #loadingBox {
   background: rgba(0, 51, 102, 0.8);
   padding: 2.5em;
@@ -40,7 +42,8 @@ body {
   width: 90%;
 }
 
-.experimentCard h1 {
+.experimentCard h1,
+h1 {
   font-size: 2.2em;
   margin-bottom: 2em;
   font-weight: bold;
@@ -122,13 +125,6 @@ body {
   z-index: 0;
 }
 
-h1 {
-  font-size: 2.4em;
-  margin-bottom: 1em;
-  font-weight: bold;
-  text-shadow: 0 0 6px rgba(0, 0, 0, 0.6);
-}
-
 #phoneInput {
   font-size: 1.5em;
   padding: 0.6em 0.8em;
@@ -165,6 +161,26 @@ h1 {
   font-weight: bold;
 }
 
+/* ✅ Video container and video style */
+#loadingVideoContainer {
+  display: block;
+  margin-top: 20px;
+  text-align: center;
+  width: 100%;
+}
+
+#loadingVideo {
+  width: 70vw;
+  max-width: 500px;
+  min-width: 280px;
+  height: auto;
+  aspect-ratio: 1 / 1;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+  object-fit: cover;
+}
+
+/* Explanations below experiment buttons */
 .explanation {
   white-space: pre-line;
   font-size: 1.1em;
@@ -193,4 +209,33 @@ h1 {
 @keyframes flash {
   0%, 100% { opacity: 1; }
   50% { opacity: 0; }
+}
+
+@media (max-width: 480px) {
+  body {
+    font-size: 0.95em;
+  }
+
+  #loginBox,
+  #loadingBox,
+  .experimentCard {
+    padding: 2em;
+    margin: 0 16px;
+    box-sizing: border-box;
+  }
+
+  .experiment {
+    font-size: 1.4em;
+    padding: 0.8em 1.5em;
+    border-radius: 12px;
+  }
+
+  .experimentButtons {
+    gap: 1.2em;
+  }
+
+  .experimentCard h1 {
+    font-size: 2em;
+    margin-bottom: 1.5em;
+  }
 }
