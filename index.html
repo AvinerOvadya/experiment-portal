@@ -9,19 +9,24 @@
   <script src="script.js" defer></script>
 </head>
 <body>
+
   <div id="loginBox">
     <h1>Enter your phone number to schedule a session</h1>
-    <input type="text" id="phoneInput" placeholder="github. 0501234567" />
+    <input type="text" id="phoneInput" placeholder="e.g. 0501234567" />
     <br />
     <button id="submitBtn" onclick="submitPhone()">Enter</button>
     <div id="error"></div>
   </div>
 
-  <div id="loadingBox">
+  <div id="loadingBox" style="display: none;">
     <p>Checking sessions...</p>
   </div>
 
-  <div id="experimentBox">
+  <div id="loadingVideoContainer" style="display: none;">
+    <video id="loadingVideo" src="Mudra_video.mp4" autoplay muted loop playsinline></video>
+  </div>
+
+  <div id="experimentBox" style="display: none;">
     <div class="experimentCard">
       <h1>Available Sessions</h1>
       <div class="experimentButtons" id="buttonContainer"></div>
@@ -33,5 +38,6 @@
       </div>
     </div>
   </div>
+
 </body>
 </html>
