@@ -70,8 +70,8 @@ async function submitPhone() {
     const alreadyDone = data.userExperiments[exp.key] === true;
 
     if (alreadyDone) {
-      console.log(`[Experiment] ${exp.key} is done. Showing Done button as Session #${sessionIndex}.`);
-      const doneBtn = createExperimentButton(`Session #${sessionIndex++}`, "inactive");
+      console.log(`[Experiment] ${exp.key} is done. Showing Done button as ${exp.key} test.`);
+      const doneBtn = createExperimentButton(`${exp.key} test`, "inactive");
       container.appendChild(doneBtn);
     }
   });
@@ -83,13 +83,12 @@ async function submitPhone() {
     const alreadyDone = data.userExperiments[exp.key] === true;
 
     if (isAvailable && !alreadyDone) {
-      console.log(`[Experiment] ${exp.key} is available. Showing Active button as Session #${sessionIndex}.`);
-      const activeBtn = createExperimentButton(`Session #${sessionIndex++}`, "active", () => {
+      console.log(`[Experiment] ${exp.key} is available. Showing Active button as ${exp.key} test.`);
+      const activeBtn = createExperimentButton(`${exp.key} test`, "active", () => {
         window.location.href = redirectUrl;
       });
       container.appendChild(activeBtn);
       activeShown = true;
-      break;
     }
   }
 
@@ -113,6 +112,6 @@ function createExperimentButton(text, type, onClick) {
 }
 
 function showComingSoon(container, sessionIndex) {
-  const comingSoonBtn = createExperimentButton(`Session #${sessionIndex}`, "comingsoon");
+  const comingSoonBtn = createExperimentButton(`Next Session`, "comingsoon");
   container.appendChild(comingSoonBtn);
 }
