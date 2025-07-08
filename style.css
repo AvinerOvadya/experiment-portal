@@ -68,6 +68,7 @@ h1 {
   cursor: pointer;
   font-weight: bold;
   transition: background 0.2s ease;
+  width: 265px;
   min-width: 120px;
   position: relative;
 }
@@ -104,7 +105,7 @@ h1 {
 }
 
 .experiment.comingsoon {
-  background-color: #7ee181;
+  background-color: #d37fea;
   color: white;
   cursor: default;
   pointer-events: none;
@@ -115,7 +116,7 @@ h1 {
   position: absolute;
   top: 6px;
   right: -34px;
-  background: #ffaa00;
+  background: #49b407;
   color: white;
   font-size: 0.7em;
   font-weight: bold;
