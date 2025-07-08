@@ -44,13 +44,6 @@ async function submitPhone() {
 
   const redirectUrl = "https://mudra.youcanbook.me/";
 
-  const experimentList = [
-    { key: "Tap" },
-    { key: "SNC" },
-    { key: "Hadas" },
-    { key: "Alisa" },
-  ];
-
   if (!data) {
     console.warn("[Flow] No data received from API. Showing Coming Soon only.");
     showComingSoon(container);
@@ -62,6 +55,8 @@ async function submitPhone() {
     showComingSoon(container);
     return;
   }
+
+  const experimentList = data.experiments.map(name => ({ key: name }));
 
   let sessionIndex = 1;
 
@@ -76,7 +71,7 @@ async function submitPhone() {
     }
   });
 
-  // Then, add the first available Active button
+  // Then, add all available Active buttons
   let activeShown = false;
   for (const exp of experimentList) {
     const isAvailable = data.globalAvailability[exp.key];
