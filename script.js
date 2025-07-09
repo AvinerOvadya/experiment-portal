@@ -44,14 +44,8 @@ async function submitPhone() {
 
   const redirectUrl = "https://mudra.youcanbook.me/";
 
-  if (!data) {
-    console.warn("[Flow] No data received from API. Showing Coming Soon only.");
-    showComingSoon(container);
-    return;
-  }
-
-  if (!data.globalAvailability || Object.keys(data.globalAvailability).length === 0) {
-    console.warn("[Flow] globalAvailability missing or empty. Showing Coming Soon only.");
+  if (!data || !data.experimentData || !data.experiments) {
+    console.warn("[Flow] Missing experiment data. Showing Coming Soon.");
     showComingSoon(container);
     return;
   }
@@ -60,9 +54,9 @@ async function submitPhone() {
 
   let sessionIndex = 1;
 
-  // First, add all Done buttons (even if experiment is globally unavailable)
+  // First, add all Done buttons
   experimentList.forEach(exp => {
-    const alreadyDone = data.userExperiments[exp.key] === true;
+    const alreadyDone = data.userExperiments?.[exp.key] === true;
 
     if (alreadyDone) {
       console.log(`[Experiment] ${exp.key} is done. Showing Done button as ${exp.key} test.`);
@@ -73,19 +67,20 @@ async function submitPhone() {
 
   // Then, add all available Active buttons
   let activeShown = false;
-  for (const exp of experimentList) {
-    const isAvailable = data.globalAvailability[exp.key];
-    const alreadyDone = data.userExperiments[exp.key] === true;
+  experimentList.forEach(exp => {
+    const isAvailable = data.experimentData?.[exp.key]?.available;
+    const alreadyDone = data.userExperiments?.[exp.key] === true;
 
     if (isAvailable && !alreadyDone) {
+      const link = data.experimentData?.[exp.key]?.link || redirectUrl;
       console.log(`[Experiment] ${exp.key} is available. Showing Active button as ${exp.key} test.`);
       const activeBtn = createExperimentButton(`${exp.key} test`, "active", () => {
-        window.location.href = redirectUrl;
+        window.location.href = link;
       });
       container.appendChild(activeBtn);
       activeShown = true;
     }
-  }
+  });
 
   // If no active was shown, show Coming Soon
   if (!activeShown) {
